@@ -1,0 +1,109 @@
+
+
+\documentclass{sig-alternate-05-2015}
+
+% Include useful packages
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+\usepackage{float}
+
+
+\begin{document}
+
+% Copyright
+\setcopyright{acmcopyright}
+
+
+\title{Unifying Framework for Network Embedding}
+
+\numberofauthors{2} 
+\author{
+% You can go ahead and credit any number of authors here,
+% e.g. one 'row of three' or two rows (consisting of one row of three
+% and a second row of one, two or three).
+%
+% The command \alignauthor (no curly braces needed) should
+% precede each author name, affiliation/snail-mail address and
+% e-mail address. Additionally, tag each line of
+% affiliation/address with \affaddr, and tag the
+% e-mail address with \email.
+%
+% 1st. author
+\alignauthor
+Yao Ma\\
+       \email{mayao4@msu.edu}
+% 2nd. author
+\alignauthor
+Zhiwei Wang \\
+       \email{wangzh65@msu.edu}
+}
+% There's nothing stopping you putting the seventh, eighth, etc.
+% author on the opening page (as the 'third row') but we ask,
+% for aesthetic reasons that you place these 'additional authors'
+% in the \additional authors block, viz.
+\date{19 February 2016}
+% Just remember to make sure that the TOTAL number of authors
+% is the number that will appear on the first page PLUS the
+% number that will appear in the \additionalauthors section.
+
+\maketitle
+
+\section{Problem Description}
+Network embedding is a method to learn low-dimensional representations of nodes in networks. The goal of network embedding is to learn a collection of feature vectors associated with nodes in a network which preserve the structure of the network. We are going to base our project on the work of Chen, et al. \cite{DBLP:journals/corr/ChenNAKF17}. Chen, et al. propose a novel unifying framework, GEM-D, which unifies most of the past network embedding algorithms including  DeepWalk \cite{DBLP:conf/kdd/PerozziAS14}, node2vec \cite{DBLP:conf/kdd/GroverL16} and LINE \cite{DBLP:conf/www/TangQWZYM15}. GEM-D consists of the following three important building blocks
+\begin{itemize}
+    \item the node proximity function $h(\cdot)$;
+    \item the warping function $g(\cdot)$;
+    \item the loss function $d(\cdot,\cdot)$.
+\end{itemize}
+The node proximity function $h(\cdot)$ is used to measure the proximity in the original node domain, while the warping function is used to measure the proximity in the embedding domain. The loss function is used to measure the difference of proximity between the two domains. The embedding feature vectors can be learned by solving the corresponding optimization problem (minimization of the loss function). Chen, et al. provide several options for all these three functions and claim DeepWalk, node2vec and LINE can be included as special cases of GEM-D framework with different choices of the above three building blocks. They also investigate how each building block influences the overall performance and propose a new algorithm UltimateWalk by choosing the optimal building blocks. 
+
+The goal of our project is to 
+\begin{itemize}
+    \item explicitly show how the aforementioned network embedding algorithms can be included in GEM-D framework.
+    \item implement the UltimateWalk algorithm and reproduce part of the results of \cite{DBLP:journals/corr/ChenNAKF17}.
+    \item verify the claims of optimally choosing the building blocks.
+    \item implement the UltimateWalk, LINE, DeepWalk and node2vec algorithms to another data set (a social network between users of Youtube \cite{DBLP:conf/cikm/TangL09}) and verify that UltimateWalk outperforms the other three algorithms. 
+\end{itemize}
+
+\section{Introduction}
+
+\section{Related Work}
+As mentioned above, there are several network embedding algorithms already existing. GEM-D includes them as special cases. In this section, we briefly describe these algorithms.
+
+Perozzi, et al. \cite{DBLP:conf/kdd/PerozziAS14} propose the DeepWalk algorithm for network embedding. The idea of DeepWalk is inspired by the natural language processing. It generates a series of random walks and regards them as sentences of an ``artificial language''. Then, it utilizes the skip-gram \cite{DBLP:journals/corr/abs-1301-3781} to model this ``artificial language''. Hierarchical softmax \cite{DBLP:conf/aistats/MorinB05} is used to solve the optimization problem for computation efficiency. DeepWalk can be only applied to undirected un weighted network.
+
+Grover, et, al. \cite{DBLP:conf/kdd/GroverL16} propose the node2vec algorithm for network embedding. The idea of node2vec is similar to DeepWalk. Instead of a normal random walk, they introduce a biased random walk procedure. This biased random walk procedure allows the algorithm to explore the neighborhood of a node under control. The other difference is that they use negative sampling \cite{DBLP:conf/nips/MikolovSCCD13} to speed up the computation instead of hierarchical softmax. node2vec can be applied to undirected weighted and unweighted network.
+
+Tang, et, al. \cite{DBLP:conf/www/TangQWZYM15} propose the LINE algorithm for network embedding. The idea of LINE can be demonstrated by the three building blocks of GEM-D framework. Specially, it provides two different proximity functions to preserve \emph{first order} and \emph{second order} proximity. The chosen loss function is KL-divergence. LINE can be applied to arbitrary networks.
+
+\section{Data description}
+As mentioned in \cite{DBLP:journals/corr/ChenNAKF17}, the UltimateWalk outperforms the state-of-the-art DeepWalk and node2vector on four datasets. We collect two of them to verify the claimed results. Further, we collected another dataset, which was not used in \cite{DBLP:journals/corr/ChenNAKF17} but used in other literature\cite{DBLP:conf/kdd/PerozziAS14}. Thus, in total, we have three datasets (Flicker, BlogCatalog, Youtube) collected.
+
+\section{Preliminary Plan}
+ Our preliminary plan is shown in Table \ref{tab:pp}. As we started a little bit late (about a month delay), we need to speed up. We plan to compose our final report while doing the other tasks. We will also try to save time during each task.
+\begin{table}[!htp]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+       Time  &  Milestone\\
+    \hline
+       3/5 - 3/12& Write proposal \\
+    \hline
+    3/13 - 3/24 & Show GEM-D unifies the other algorithms \\
+    \hline
+    3/25 - 3/31 & Write intermediate project report\\
+    \hline
+    4/1 - 4/14 & Implement UltimateWalk and reproduce results\\
+    \hline
+    4/15 - 4/24 & Implement the algorithms to the Youtube data set\\
+    \hline 
+    4/25 - 4/28 & Complete the final project report\\
+    \hline
+    \end{tabular}
+    \caption{Preliminary Plan}
+    \label{tab:pp}
+\end{table}
+
+\bibliography{proj-proposal}
+\bibliographystyle{abbrv}
+\end{document}
